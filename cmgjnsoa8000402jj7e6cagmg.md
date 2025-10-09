@@ -25,3 +25,65 @@ A pod that runs more then one container together on the same node, sharing the s
 ### Pods Lifecycle and Troubleshooting Phases
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1760028732850/23a424b9-78a7-4a6b-8546-1a484480c9aa.png align="center")
+
+## Pod Creation
+
+### Create Pod YAML file
+
+* nginx-pod.yaml
+    
+* ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: nginx-pod
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+    ```
+    
+
+### Apply the Pod
+
+* Run the command to create the pod
+    
+* ```bash
+    kubectl apply -f nginx-pod.yaml
+    ```
+    
+
+### Verify Pod Status
+
+* Check if pod is running
+    
+    ```bash
+    kubectl get pods
+    ```
+    
+    logs
+    
+* ```sql
+    NAME         READY   STATUS    RESTARTS   AGE
+    nginx-pod    1/1     Running   0          10s
+    ```
+    
+    ### Access Pod for Testing
+    
+    Use port forwarding to access the Nginx page:
+    
+* ```bash
+    kubectl port-forward pod/nginx-pod 8080:80
+    Check: http://localhost:8080
+    ```
+    
+
+### Describe Pod Details
+
+```bash
+kubectl describe pod nginx-pod
+```
