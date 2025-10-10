@@ -33,7 +33,7 @@ The docker daemon (dockerd) this is the background service that listens Docker A
 
 **Docker execution flow:**
 
-docker build → build an image from a docker file \[hostname/repositoryname:tag\]
+docker build → build an image from a docker file \[hostname/repositoryname:tag .\]
 
 docker pull → downloads an image from docker hub(or registry)
 
