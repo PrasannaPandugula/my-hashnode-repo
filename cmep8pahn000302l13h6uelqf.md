@@ -78,6 +78,9 @@ docker login ; enter username & password.
 
 12\. docker images → list all images || docker pull {image id}
 
+13. docker stop $(docker ps -q) \[to pass in the list of all running containers\]
+    
+
 Note: if you don’t want to use EC2, go for Docker Desktop (it creates VM) on your laptop/ desktop.
 
 ### Jenkins and Docker interaction:
