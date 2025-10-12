@@ -4,6 +4,7 @@ seoTitle: "Docker vs VM: Simple Explanation with Examples"
 datePublished: Sun Aug 24 2025 05:20:34 GMT+0000 (Coordinated Universal Time)
 cuid: cmep8pahn000302l13h6uelqf
 slug: docker-made-easy
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1760269761534/5a93f2a1-344c-4b09-9c3e-61f0bdc7e9e8.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1756012796575/4dbd2f42-556b-46f9-9f25-f7db921e27b8.png
 tags: docker
 
