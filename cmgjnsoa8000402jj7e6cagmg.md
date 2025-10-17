@@ -1,5 +1,5 @@
 ---
-title: "Day3 Deep Dive into Kubernetes Pods"
+title: "Day3: Deep Dive into Kubernetes Pods"
 seoTitle: "Kubernetes pods, Containers, Trobleshhoting pods"
 datePublished: Thu Oct 09 2025 16:55:53 GMT+0000 (Coordinated Universal Time)
 cuid: cmgjnsoa8000402jj7e6cagmg
