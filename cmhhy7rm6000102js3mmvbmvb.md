@@ -1,9 +1,9 @@
 ---
-title: "Services and Networking in K8s"
+title: "Day 5: Services and Networking in K8s"
 seoTitle: "Kubernetes, Ingress, DNS, Service Discovery"
 datePublished: Sun Nov 02 2025 16:51:44 GMT+0000 (Coordinated Universal Time)
 cuid: cmhhy7rm6000102js3mmvbmvb
-slug: services-and-networking-in-k8s
+slug: day-5-services-and-networking-in-k8s
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1762099473524/2147a4e7-54a8-4ede-a421-48dd4084fded.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1762102268726/4bcc812f-6d2a-4f21-87d5-b32beeb9389d.png
 tags: k8s-series
