@@ -135,6 +135,8 @@ Mainly, we have 3 types of certs we create
 
 * use tool to generate certs **EASYRS, OPENSSL, CFSSL etc..**
     
+* best way to cert configurations in config file.
+    
 
 **Certificate Authority cert creation:**
 
@@ -142,4 +144,86 @@ Mainly, we have 3 types of certs we create
 $ openssl genrsa -out ca.key 2048 #generate private key ca.key
 $ openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr # certificate signing req, KUBERNETES-CA is component name
 $ openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt # sign cert
+```
+
+**etcd Server**
+
+```bash
+$ cat /etc/kubernetes/manifests/etcd.yaml
+ command:
+    - etcd
+    - --advertise-client-urls=https://192.168.114.213:2379
+    - --cert-file=/etc/kubernetes/pki/etcd/server.crt # authenticate etcd server
+    - --client-cert-auth=true
+    - --data-dir=/var/lib/etcd
+    - --feature-gates=InitialCorruptCheck=true
+    - --initial-advertise-peer-urls=https://192.168.114.213:2380
+    - --initial-cluster=controlplane=https://192.168.114.213:2380
+    - --key-file=/etc/kubernetes/pki/etcd/server.key
+    - --listen-client-urls=https://127.0.0.1:2379,https://192.168.114.213:2379
+    - --listen-metrics-urls=http://127.0.0.1:2381
+    - --listen-peer-urls=https://192.168.114.213:2380
+    - --name=controlplane
+    - --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt
+    - --peer-client-cert-auth=true
+    - --peer-key-file=/etc/kubernetes/pki/etcd/peer.key
+    - --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt # ETCD Server CA Root Certificate used to serve ETCD Server.
+    - --snapshot-count=10000
+    - --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+    - --watch-progress-notify-interval=5s
+```
+
+**kube-apiserver;** check logs: crictl ps -a | grep kube-apiserver
+
+```bash
+$ cat /etc/kubernetes/manifests/kube-apiserver.yaml
+- --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt
+    - --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt #Client cert for authentication etcd server
+    - --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key
+    - --etcd-servers=https://127.0.0.1:2379
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key # kublet server authenticate 
+    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt 
+    - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+    - --requestheader-allowed-names=front-proxy-client
+    - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --requestheader-group-headers=X-Remote-Group
+    - --requestheader-username-headers=X-Remote-User
+    - --secure-port=6443
+    - --service-account-issuer=https://kubernetes.default.svc.cluster.local
+    - --service-account-key-file=/etc/kubernetes/pki/sa.pub
+    - --service-account-signing-key-file=/etc/kubernetes/pki/sa.key
+    - --service-cluster-ip-range=172.20.0.0/16
+    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt  # kube-apiserver cert
+    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+```
+
+**Kubelet Nodes**
+
+Create certificates for each node.
+
+\-Common Name (CN) configured on the **Kube API Server Certificate**
+
+```bash
+$ openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text #look subject name
+ Issuer: CN = kubernetes  # name of the CA who issued the Kube API Server Certificate
+        Validity
+            Not Before: Nov 23 14:39:33 2025 GMT
+            Not After : Nov 23 14:44:33 2026 GMT
+        Subject: CN = kube-apiserver # CN naeem here
+        Subject Public Key Info:
+     X509v3 Authority Key Identifier: 
+                FD:53:F7:34:3F:F3:6C:81:0F:A7:0C:9E:55:AE:37:61:EC:5C:6F:0E
+            X509v3 Subject Alternative Name:  # other names of kube api server
+                DNS:controlplane, DNS:kubernetes, DNS:kubernetes.default, DNS:kubernetes.default.svc, 
+DNS:kubernetes.default.svc.cluster.local, IP Address:172.20.0.1, IP Address:192.168.114.213
+```
+
+* CN name check for **etcd server**
+    
+
+```bash
+ $ openssl x509 -in /etc/kubernetes/pki/etcd/server.crt -text
 ```
