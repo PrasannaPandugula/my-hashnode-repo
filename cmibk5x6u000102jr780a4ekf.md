@@ -58,10 +58,10 @@ How to use these keys in our scenario:
 
 ```bash
 # on web server do ssh to keys file
-$ cat ~/.ssh/autorized_keys 
+$ cat ~/.ssh/autorized_keys
 ```
 
-2. Using the same public key you can lock as many servers as you want and with same private key we can SSH into all the servers securely.
+2. Use same public key to lock web servers as many as you need, SSH into servers securely using same private key.
     
 3. How other users can get access to servers, they generate their own public and private keys and actual owner can copy the newly created public keys into server file so others can access using there private keys.
     
@@ -94,7 +94,7 @@ $ cat ~/.ssh/autorized_keys
 
 8.How do we get authority sign on certificate ? That’s where CA(Certificate Authority) comes in.
 
-9.Popular CA’s \[Symantec, digicert, GlobalSign\].
+9.**Popular CA’s** \[Symantec, digicert, GlobalSign\].
 
 10.How to request CSR (Certificate Signing Request)
 
@@ -118,3 +118,28 @@ Note: Public and private keys are paired, we can only use any one for encryption
 15. Identify public and private keys with extensions.
     
     ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763892468043/a59307e2-25d1-4f19-896f-c6a7251ad5f4.png align="left")
+    
+
+## TLS in Kubernetes
+
+Mainly, we have 3 types of certs we create
+
+1. Root Certificates - Certificate Authority
+    
+2. Client Certificate (access kube-apiserver)- Admins, kube-scheduler, kube controller-manager, kube-proxy.
+    
+3. Server Certificate- kube-apiserver, etcd server, kubelet.
+    
+
+### How to Generate Certificates for Cluster
+
+* use tool to generate certs **EASYRS, OPENSSL, CFSSL etc..**
+    
+
+**Certificate Authority cert creation:**
+
+```bash
+$ openssl genrsa -out ca.key 2048 #generate private key ca.key
+$ openssl req -new -key ca.key -subj "/CN=KUBERNETES-CA" -out ca.csr # certificate signing req, KUBERNETES-CA is component name
+$ openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt # sign cert
+```
