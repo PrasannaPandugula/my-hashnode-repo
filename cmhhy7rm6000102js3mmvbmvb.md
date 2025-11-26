@@ -24,17 +24,17 @@ We use different services to expose pods
 * we can access deployed applications with in the cluster
     
 * ```yaml
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: my-app-service
-      spec:
-        selector:
-          app: my-app
-        ports:
-          - port: 80         # service port
-            targetPort: 8080 # container port
-        type: ClusterIP    # we change based on requirement
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: my-app-service
+        spec:
+          selector:
+            app: my-app
+          ports:
+            - port: 80         # service port
+              targetPort: 8080 # container port
+          type: ClusterIP    # we change based on requirement
     ```
     
 
@@ -106,7 +106,7 @@ Test: curl http://&lt;EXTERNAL-IP&gt;
 
 ### Service vs Ingress
 
-* Service: it handles internal networking and ensures stable IPs and Pods
+* Service: it handles internal networking and ensures stable IPs and Pods.
     
 * Ingress: it provides smart routing SSL termination, and single-entry access for multiple apps.
     
@@ -117,7 +117,7 @@ In a traditional world, apps need IP addresses to communicate. But in Kubernetes
 
 ### Service Discovery
 
-* Applications automatically communicate each other without hard coding IPs
+* Applications automatically communicate with each other without hard-coding IPs
     
 * In Kubernetes, every **Service** automatically gets a **stable DNS name** and a **cluster-internal IP**.
     
@@ -126,7 +126,7 @@ In a traditional world, apps need IP addresses to communicate. But in Kubernetes
 
 * Kubernetes uses an internal DNS called coreDNS (a built-in add-on)
     
-* when ever we create service, Kubernetes automatically updates DNS record for it.
+* Whenever we create a service, Kubernetes automatically updates DNS record for it.
     
 * Ex: Service name: backend = backend.default.svc.cluster.local \[DNS name\]
     
