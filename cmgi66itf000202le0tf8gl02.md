@@ -20,7 +20,7 @@ By using Kubernetes, users can schedule and run containers on physical or virtua
 
 ### Kubernetes Components
 
-Kubernetes has two main components that allow it to function
+Kubernetes has two main components that allow it to function.
 
 **1\. Clusters**
 
@@ -43,13 +43,13 @@ Kubernetes has excellent following features to facilitate application developmen
     
 * **Efficiency -** The platform helps make more efficient use of servers resources, reducing waste and improving application performance.
     
-* **Portability -** Kubernetes is so portable and flexible that it can run on any infrastructure, including, including on-premises, data centers,, public clouds, or hybrid clouds.
+* **Portability -** Kubernetes is so portable and flexible that it can run on any infrastructure, including on-premises, data centers, public clouds, or hybrid clouds.
     
-* **Security-** It comes with a wide range of security features to protect applications from threats. This helps improves complains and reduce security risks.
+* **Security-** It comes with a wide range of security features to protect applications from threats. This helps improve complaints and reduce security risks.
     
-* **Automation**\- Highly stable system automation that does not effect the performance of the operations team. In addition, containers save developers by applying rapid iteration cycle techniques.
+* **Automation**\- Highly stable system automation that does not affect the performance of the operations team. In addition, containers save developers by applying rapid iteration cycle techniques.
     
 
 ## Conclusion
 
-“In this blog, we have uncovered the power of Kubernetes, understanding its definition, core components, features and capabilities. Over next few days will explore its architectures, core components pods, replica sets and its challenges. Let’s make Kubernetes easy and enjoyable - get ready to become a pro in next few days! “
+In this blog, we have uncovered the power of Kubernetes, understanding its definition, core components, features, and capabilities. Over the next few days will explore its architectures, core components, pods, replica sets and its challenges. Let’s make Kubernetes easy and enjoyable - get ready to become a pro in the next few days!
