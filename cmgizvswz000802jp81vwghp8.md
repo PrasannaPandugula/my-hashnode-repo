@@ -22,110 +22,110 @@ It receives inputs from CLI (command line interface), or UI (user interface) via
 
 ### API Server
 
-* It transmits data trough HTTP using JSON.
+* It transmits data through HTTP using JSON.
     
-* It process requests, validate them, and instruct the relevant service or controller to update the state object in etcd.
+* It processes requests, validates them, and instructs the relevant service or controller to update the state object in etcd.
     
 * Allows user to configure workloads across the cluster.
     
 * ```bash
-      kubectl cluster-info  (shows url of K8s server Ex: https://<api-server-ip>:6443)
-      kubectl api-versions
-      kubectl api-resources
+        kubectl cluster-info  #(shows url of K8s server Ex: https://<api-server-ip>:6443)
+        kubectl api-versions
+        kubectl api-resources
     ```
     
 
 ### Scheduler
 
-* Watches for new requests coming from the API Server and assign then to healthy nodes.
+* Watch for new requests coming from the API Server and assign them to healthy nodes.
     
-* Assesses nodes to select an unscheduled pod should be placed based on CPU and memory requests, policies, data locality, labels affinities of the workload.
+* Assesses nodes to select an unscheduled pod that should be placed on CPU and memory requests, policies, data locality, labels, and affinities of the workload.
     
 * If there are no suitable nodes, the pods are put in a pending state until such a node appears.
     
     ```bash
-    kubectl get pods -n kube-system | grep kube-schedular    (check schedular status)
-    kubectl -n kube-system logs kube-schedular-<node-name>   (view schedular logs)
-    kubectl get pods -o wide                                 (which node a pod is scheduled)
+    kubectl get pods -n kube-system | grep kube-schedular    #(check scheduler status)
+    kubectl -n kube-system logs kube-scheduler-<node-name>   #(view scheduler logs)
+    kubectl get pods -o wide                                 #(list scheduled nodes)
     ```
     
 
 ### Controller Manager
 
-* Its a single process that encompasses all of the controllers within kubernetes.
+* It’s a single process that encompasses all of the controllers within Kubernetes.
     
-* Controllers run as single process in a DeamonSet to reduce complexity.
+* Controllers run as a single process in a DaemonSet to reduce complexity.
     
-* It checks the current state of nodes it is tasked to control, and determines if there are any differences and resolve them, if any.
+* It checks the current state of nodes it is tasked to control, and determines if there are any differences and resolves them, if any.
     
 * ```bash
-      kubectl -n kube-system describe pod kube-controller-manager-<node-name>  (CM-event, health check)
-      kubectl -n kube-system logs kube-controller-manager-<node-name>          (view loogs)
-      kubectl get pods -n kube-system | grep kube-controller-manager           (CM status check)
+        kubectl -n kube-system describe pod kube-controller-manager-<node-name>  (CM-event, health check)
+        kubectl -n kube-system logs kube-controller-manager-<node-name>          (view loogs)
+        kubectl get pods -n kube-system | grep kube-controller-manager           (CM status check)
     ```
     
 
 ### **Etcd (Key-Value Store)**
 
-* Is a database, Kubernetes uses to back-up all cluster data.
+* It is a database, Kubernetes uses to back up all cluster data.
     
-* It stores entire configuration and state of the cluster.
+* It stores the entire configuration and state of the cluster.
     
-* The master node queries etcd to retrieves parameters for the state of the nodes, pods, and containers.
+* The master node queries etcd to retrieve parameters for the state of the nodes, pods, and containers.
     
 * ```bash
-      kubectl get pods -n kube-system | grep ectd           (etcd pod status check)
-      kubectl -n kube-system logs etcd-<node-name>          (view logs)
-      kubectl -n kube-system describe pod etcd-<node-nmae>  (describe etcd pod)
+        kubectl get pods -n kube-system | grep ectd           (etcd pod status check)
+        kubectl -n kube-system logs etcd-<node-name>          (view logs)
+        kubectl -n kube-system describe pod etcd-<node-name>  (describe etcd pod)
     ```
     
 
 ## Kubernetes Worker Node (Data Plane)
 
-Worker node listens to api server for new work assignments; they execute the work assignments and then report result back to the kubernetes master node.
+Worker node listens to api server for new work assignments; they execute the work assignments and then report the result back to the Kubernetes master node.
 
 ### Kubelet
 
-* Kebelet runs on every node in the cluster, also watches tasks send from the API server, executes tasks and communicates information about the state and health of containers to kubernetes.
+* Kubelet runs on every node in the cluster, also watches tasks sent from the API server, executes tasks, and communicates information about the state and health of containers to Kubernetes.
     
-* It also monitors the pods and report back to control plane if pod is not fully functional.
+* It also monitors the pods and reports back to the control plane if pod is not fully functional.
     
-* By installing kubelet, the nodes CPU, RAM, and storage become part of broader cluster.
+* By installing kubelet, the nodes’ CPU, RAM, and storage become part of broader cluster.
     
 * ```bash
-      kubectl get nodes
-      kubectl describe node <node-name>
-      sudo journalctl -u kubelet -f       (Run on node, kubelet isnot managed as pod)
+        kubectl get nodes
+        kubectl describe node <node-name>
+        sudo journalctl -u kubelet -f       (Run on node, kubelet isnot managed as pod)
     ```
     
 
 ### Kube-proxy
 
-* It make sure that each node gets it IP address, implements local iptables and rules to handle routing and traffic load-balancing.
+* It make sure that each node gets its IP address, implements local iptables and rules to handle routing and traffic load-balancing.
     
-* It allows network communication between servers and pods, and responsible for routing network traffic.
+* It allows network communication between servers and pods, and is responsible for routing network traffic.
     
 * ```bash
-      kubectl get pods -n kube-system | grep kube-proxy             (check proxy status)
-      kubectl -n kube-system logs kube-proxy-<node-name>            (view logs)
-      kubectl -n kube-system describe pod kube-proxy-<node-name>    (describe kube-proxy pod)
+        kubectl get pods -n kube-system | grep kube-proxy             (check proxy status)
+        kubectl -n kube-system logs kube-proxy-<node-name>            (view logs)
+        kubectl -n kube-system describe pod kube-proxy-<node-name>    (describe kube-proxy pod)
     ```
     
 
 ### **Container Runtime**
 
-* It pulls images from container registry and starts and stops containers, a 3rd party plugin such as docker performs this action.
+* It pulls images from container registry and starts and stops containers; a 3rd party plugin, such as docker performs this action.
     
-* Popular containers runtime examples include containerd, Docker, and CRI-O.
+* Popular container runtime examples include containerd, Docker, and CRI-O.
     
 * ```bash
-      #Docker                         #containerd                        #CRI-O
-      docker ps                       crictl ps                          crictl ps
-      docker --version                containerd --version               crio --version
-      sudo journalctl -u docker -f    sudo journalctl -u containerd -f   sudo journalctl -u crio -f  (debug containers)
+        #Docker                         #containerd                        #CRI-O
+        docker ps                       crictl ps                          crictl ps
+        docker --version                containerd --version               crio --version
+        sudo journalctl -u docker -f    sudo journalctl -u containerd -f   sudo journalctl -u crio -f  (debug containers)
     ```
     
 
 ## Conclusion
 
-In today’s blog, we learn about architecture of Kubernetes and its components with useful kubectl commands, in coming days we focus on pods, set of Kubernates in different servers and deployment scripts.
+In today’s blog, we learn about the architecture of Kubernetes and its components with useful kubectl commands, in the coming days, we will focus on pods, set of Kubernetes in different servers, and deployment scripts.
