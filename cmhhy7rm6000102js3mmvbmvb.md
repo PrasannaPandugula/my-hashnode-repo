@@ -12,7 +12,7 @@ tags: k8s-series
 
 ## Introduction
 
-* When we deploy an application in Kubernetes, our Pods are not directly accessible from the outside world. To make them reachable, Kubernetes provides two key networking components: **Service** and **Ingress**.
+* When we deploy an application in Kubernetes, our Pods are not directly accessible from the outside world. To make them reachable, Kubernetes provides two key networking components: **Services** and **Ingress**.
     
 
 ## Types of Services
@@ -24,17 +24,17 @@ We use different services to expose pods
 * we can access deployed applications with in the cluster
     
 * ```yaml
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: my-app-service
-        spec:
-          selector:
-            app: my-app
-          ports:
-            - port: 80         # service port
-              targetPort: 8080 # container port
-          type: ClusterIP    # we change based on requirement
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: my-app-service
+          spec:
+            selector:
+              app: my-app
+            ports:
+              - port: 80         # service port
+                targetPort: 8080 # container port
+            type: ClusterIP    # we change based on requirement
     ```
     
 
@@ -45,7 +45,7 @@ kubectl describe svc my-app-service  # Verify clusterIP, Ports, Endpoints
 
 ## NodePort
 
-* Expose the app outside the cluster via NodeIp Ex: 40080
+* Expose the app outside the cluster via NodeIp Ex: 30080
     
 * Useful for testing or small setups Ex: Kind, Minikube
     
@@ -101,7 +101,7 @@ Test: curl http://&lt;EXTERNAL-IP&gt;
 
 * Ingress works like a **traffic controller** or **gateway** that manages **HTTP/HTTPS routing** to multiple Services.
     
-* Instead of using separate NodePorts or LoadBalancers for each app, you can route traffic based on **hostnames** or **paths**.
+* Instead of using separate NodePorts or LoadBalancers for each app, we can route traffic based on **hostnames** or **paths**.
     
 
 ### Service vs Ingress
