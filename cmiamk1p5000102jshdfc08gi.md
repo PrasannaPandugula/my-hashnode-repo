@@ -25,8 +25,8 @@ We deploy number of application in K8s using Pods, Deployments, and a Service de
 * **Approach 1**: Create a manifest file using a Declarative approach It’s a preferred approach and can be stored it in the source code repository. Even if we lost the entire cluster, we can reapply the manifest file from git.
     
 * ```bash
-      kubectl apply -f deployment.yaml
-      kubectl apply -f service.yaml
+     $ kubectl apply -f deployment.yaml
+     $ kubectl apply -f service.yaml
     ```
     
     **Approach 2:** Clearing the Kube-apiserver
@@ -34,7 +34,7 @@ We deploy number of application in K8s using Pods, Deployments, and a Service de
     \- Use kubectl or access kube-apiserver directly, save all objects created on the cluster as a copy.
     
 * ```bash
-      kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml # add commands in backup scripts
+      $ kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml # add commands in backup scripts
     ```
     
 
@@ -45,7 +45,7 @@ We deploy number of application in K8s using Pods, Deployments, and a Service de
 
 ## etcd Cluster
 
-* it stores the state of Kubernetes cluster, nodes information, etc.
+* it stores the state of the Kubernetes cluster, node information, etc.
     
 * **Approach 1**: While configuring etcd, we specify the location where data can be stored in a particular directory.
     
