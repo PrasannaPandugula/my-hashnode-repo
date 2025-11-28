@@ -20,43 +20,43 @@ tags: k8s-series
 
 ### Resource Configuration
 
-We deploy number of application in K8s using Pods, Deployments, Service definition file.
+We deploy number of application in K8s using Pods, Deployments, and a Service definition file.
 
-* **Approach1**: create manifest file using Declarative approach its a preferred approach and can store it in source code repository even we lost entire cluster we can reapply manifest file from git .
+* **Approach 1**: Create a manifest file using a Declarative approach It’s a preferred approach and can be stored it in the source code repository. Even if we lost the entire cluster, we can reapply the manifest file from git.
     
 * ```bash
-    kubectl apply -f deployment.yaml
-    kubectl apply -f service.yaml
+      kubectl apply -f deployment.yaml
+      kubectl apply -f service.yaml
     ```
     
-    **Approach2:** Clearing Kube-apiserver
+    **Approach 2:** Clearing the Kube-apiserver
     
-    \- use kubectl or access kube-apiserver directly save all objects created on cluster as copy.
+    \- Use kubectl or access kube-apiserver directly, save all objects created on the cluster as a copy.
     
 * ```bash
-    kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml # add commands in backup scripts
+      kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml # add commands in backup scripts
     ```
     
 
 ## **Backup Tool:**
 
-* Use ARK(VELERO) tool take backup of Kubernetes cluster by kube-apiserver.
+* Use ARK(VELERO) tool to take a backup of the Kubernetes cluster by the kube-apiserver.
     
 
 ## etcd Cluster
 
-* it stores state of kubernetes cluster, nodes information etc.
+* it stores the state of Kubernetes cluster, nodes information, etc.
     
-* **Approach1**: while configuring etcd we specify the location where data can store in particular directory.
+* **Approach 1**: While configuring etcd, we specify the location where data can be stored in a particular directory.
     
 
 ```bash
-etcd.service
+$ etcd.service
 ```
 
 ### **Using** `etcdctl` (Snapshot-based Backup)
 
-1. backup of etcd database using snapshot save command.
+1. Backup of the etcd database using the snapshot save command.
     
 
 ```bash
@@ -67,28 +67,28 @@ etcdctl --endpoints=https://[127.0.0.1]:2379 \
 snapshot save /opt/snapshot-pre-boot.db  #file location
 ```
 
-2. check snapshot status command.
+2. Check the snapshot status command.
     
 
 ```bash
 $ etcdctl \ 
-     snapshot status snapshot.db 
+     snapshot status snapshot.db
 ```
 
-3. Restore the cluster from this backup later point of time follow below steps.
+3. Restore the cluster from this backup later point in time. Follow steps below.
     
-    * stop kube-apiserver and run restore command
+    * stop kube-apiserver and run the restore command
         
     * ```bash
-        $ systemctl stop kube-apiserver
-        $ etcdctl \ 
-          snapshot restore snapshot.db
-          --data-dir /var/lib/etcd-from-backup  # it initializes new cluster configuration with data directory
-          
-        $ etc.service
-        $ systemctl deamon-reload  
-        $ systemctl restart etcd
-        $ systemctl start kube-apiserver.
+          $ systemctl stop kube-apiserver
+          $ etcdctl \ 
+            snapshot restore snapshot.db
+            --data-dir /var/lib/etcd-from-backup  # it initializes new cluster configuration with data directory
+            
+          $ etc.service
+          $ systemctl deamon-reload  
+          $ systemctl restart etcd
+          $ systemctl start kube-apiserver.
         ```
         
         ```bash
@@ -102,7 +102,7 @@ $ etcdctl \
         2025-04-24T09:38:07Z    info    snapshot/v3_snapshot.go:293     restored snapshot       {"path": "/opt/snapshot-pre-boot.db", "wal-dir": "/var/lib/etcd-from-backup/member/wal", "data-dir": "/var/lib/etcd-from-backup", "snap-dir": "/var/lib/etcd-from-backup/member/snap", "initial-memory-map-size": 10737418240}
         ```
         
-        4. update newly restored directory path in file `/etc/kubernetes/manifests/etcd.yaml` as host path
+        4. Update the newly restored directory path in file `/etc/kubernetes/manifests/etcd.yaml` as the host path.
             
             ```bash
              ...
@@ -115,19 +115,19 @@ $ etcdctl \
             
         
     
-    5\. `ETCD` pod is automatically re-created as this is a static pod placed under the `/etc/kubernetes/manifests` directory watch logs.
+    5\. `ETCD` pod is automatically re-created, as this is a static pod placed under the `/etc/kubernetes/manifests` directory. Watch logs.
     
     ```bash
-    watch crictl ps
+    $ watch crictl ps
     ```
     
-    7. once the updated etcd is up check pods, deployments.
+    7. Once the updated etcd is up, check pods, deployments.
         
     
     ```bash
     kubectl get deployments, services
     ```
     
-    **Note**: so far we have seen backup using etcd and clearing kubeapi-server.
+    **Note**: So far, we have seen backup using etcd and clearing the kubeapi-server.
     
-    * in managed kubernets cluster like AKS, EKS we won’t be having access to etcd. In this case backup using clearing kube-apiserver is better approach.
+    * in managed Kubernetes clusters like AKS, EKS, we won’t have access to etcd. In this case, backup using clearing the kube-apiserver is a better approach.
