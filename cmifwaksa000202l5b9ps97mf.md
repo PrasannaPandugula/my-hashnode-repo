@@ -37,7 +37,7 @@ spec:
 $  kubectl apply -f akshay-csr.yaml #run apply command.
 ```
 
-Check status of approval
+Check the status of approval
 
 ```bash
 $  kubectl apply -f akshay-csr.yaml  # Pending, Approved, Issued
@@ -65,7 +65,7 @@ Kubeconfig file consists of 3 sections:
 $ kubectl config view # view the config fle
 $ kubectl config view -kubeconfig=my-custom-config  # list specific file
 $ kubectl config use-context prod-user@production #change context in config file, changes update file directly
-$ kubectl config -h 
+$ kubectl config -h
 ```
 
 We don't want to specify the **kubeconfig file** option on each `kubectl` command.
@@ -73,10 +73,10 @@ We don't want to specify the **kubeconfig file** option on each `kubectl` comman
 1. open shell configuration file
     
 2. ```bash
-    vi ~/.bashrc
+     vi ~/.bashrc
     ```
     
-3. add one of these lines to export the variables
+3. Add one of these lines to export the variables
     
     ```bash
     export KUBECONFIG=/root/my-kube-config
@@ -99,7 +99,7 @@ Kubectl command to set certificate path
  kubectl config set-credentials dev-user \ # user = dev-user
   --client-certificate=/etc/kubernetes/pki/users/dev-user/dev-user.crt \
   --client-key=/etc/kubernetes/pki/users/dev-user/dev-user.key \
-  --kubeconfig=/root/my-kube-config # file location 
+  --kubeconfig=/root/my-kube-config # file location
 ```
 
 ## API Groups in Kubernetes
@@ -120,13 +120,13 @@ We have multiple api groups
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1764153574044/a631a80a-b0d1-4f7d-9a65-740d5dd1b63a.png align="center")
 
-/apis- are more organized
+**/apis**\- are more organized
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1764153921260/17c56696-3baf-4f56-9390-a949678ba8c0.png align="center")
 
-**Kubectl Proxy:** to access cluster use kubectl proxy this way we no need to pass cert with command.
+**Kubectl Proxy:** to access the cluster, use kubectl proxy.This way we don’t need to pass cert with command.
 
 ```bash
-$ Kubectl Proxy  #it launches the local https server, uses credentials and certs from kube config file
-Staring to server on 127.0.0.1:8001 
+$ Kubectl Proxy  #it launches the local https server, uses credentials and certs from kubeconfig file
+Starting to server on 127.0.0.1:8001
 ```
