@@ -21,7 +21,7 @@ tags: k8s-series
 
 **Scenario**: User tries to access the online bank application
 
-1. Without secure connectivity, users were to access online back application credentials they typed in and send as ‘plain text’ format to the web server, if a hacker sniffing n/w traffic could easily retrieve the credentials.
+1. Without secure connectivity, users had to access online back application credentials they typed in and send as ‘plain text’ format to the web server, if a hacker sniffing n/w traffic could easily retrieve the credentials.
     
     ### **Symmetric Encryption:**
     
