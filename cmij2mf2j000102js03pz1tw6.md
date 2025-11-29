@@ -229,3 +229,43 @@ $ kubectl get networkpolicy or kubectl get netpol
 NAME             POD-SELECTOR   AGE
 payroll-policy   name=payroll   2m42s
 ```
+
+## **Kubectx Tool**
+
+This tool, used to switch **context** between clusters in a multi cluster environment.
+
+**What is Context?**
+
+Context is set of access parameters that tells **kubectl,** ‘which cluster to talk, which user credentials to use and which namespace to operate in’.
+
+Example
+
+```yaml
+contexts:                   #dev context
+- name: dev
+  context:
+    cluster: dev-cluster
+    user: dev-user
+    namespace: dev
+- name: prod              #prod context
+  context:
+    cluster: prod-cluster
+    user: prod-user
+    namespace: default
+```
+
+```bash
+kubectx dev    #switch to dev context
+kubectx prod   #switch to prod context
+kubectx -      # switch back to previous context
+kubectx -c     # current context
+```
+
+## Kubens Tool
+
+Kubens used to switch between namespace quickly.
+
+```bash
+kubens <namespace-name>
+kubens-  # swich back to previous ns
+```
