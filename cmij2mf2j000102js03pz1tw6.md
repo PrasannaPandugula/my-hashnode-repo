@@ -1,6 +1,6 @@
 ---
 title: "Day 12: K8s Service Account and  Image Security"
-seoTitle: "Image Security, Private Registry, Security Context, Network Policies "
+seoTitle: "Image Security, Private Registry, Security Context, Network Policies"
 datePublished: Fri Nov 28 2025 16:22:34 GMT+0000 (Coordinated Universal Time)
 cuid: cmij2mf2j000102js03pz1tw6
 slug: day-12-k8s-service-account-and-image-security
@@ -27,7 +27,7 @@ $ kubectl create serviceaccount srv678905
 * create a token
     
 * ```bash
-      $ kubectl create token srv678905 --duration 2h   #default expiry 1h
+        $ kubectl create token srv678905 --duration 2h   #default expiry 1h
     ```
     
 
@@ -40,31 +40,31 @@ $ kubectl create serviceaccount srv678905
 * To attach a new service account to pod, use serviceAccountName in pod object.
     
 * ```yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: nginx
-      spec:
-        containers:
-        - name: nginx
-          image: nginx:1.14.2
-        serviceAccountName: srv678905  # binding new one
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: nginx
+        spec:
+          containers:
+          - name: nginx
+            image: nginx:1.14.2
+          serviceAccountName: srv678905  # binding new sc
     ```
     
     \- When service account is attached to a Pod, Kubernetes:
     
 * * Automatically creates a token and mounts as a projected token
         
-        * Automatically rotates the token.
-            
-        * Automatically expires token when Pod is deleted.
-            
+        \* Automatically rotates the token.
+        
+        \* Automatically expires token when Pod is deleted.
+        
 
 ## Image Security
 
 ### Basics of Image Names
 
-Let’s see Docker image name convention
+Let’s see Docker image naming convention.
 
 ```yaml
 image: nginx     #we use but internally it treated as 
@@ -72,7 +72,7 @@ image: nginx     #we use but internally it treated as
 image: docker.io/liberary/nginx  [docker.io # registry where images are pulled from]
                                  [liberary # is user account if we don't have one, it uses default docker acc]
                                  [nginx # image or Repository]
-Ex: gcp.io/kubernetes-e2e-test-images/dnsutils #public gcp image 
+Ex: gcp.io/kubernetes-e2e-test-images/dnsutils #public gcp image
 ```
 
 ### Private Repository
@@ -81,10 +81,10 @@ Run docker container using private repository using imperative commands.
 
 ```bash
 $ docker login private-repository.io # login with credentials
-$ docker run private-registory.io/apps/may-app 
+$ docker run private-registory.io/apps/may-app
 ```
 
-Use private registry image in Pod definition file
+Use private registry image in Pod definition file.
 
 ```yaml
 apiVersion: V1
@@ -103,13 +103,13 @@ In Kubernetes, images pull and run by the docker runtime on worker node, we have
 * Create secret object with credentials.
     
 * ```bash
-    $ kubectl create secret docker-registry regcred \   # docker-registry is build in secret to store credentials
-        --docker-server= private-registry.io  \
-        --docker-username= prasanna \
-        --docker-password= prasanna@898  \
-        --docker-email= prasanna@gamil.com
-    
-    # Specify the secret in Pod file
+      $ kubectl create secret docker-registry regcred \   # docker-registry is build in secret to store credentials
+          --docker-server= private-registry.io  \
+          --docker-username= prasanna \
+          --docker-password= prasanna@898  \
+          --docker-email= prasanna@gmail.com
+      
+      # Specify the secret name in Pod file under containers
     ```
     
 
@@ -126,7 +126,7 @@ spec:
 
 As we know docker uses shared libraries of kernel or host OS, root user can perform any action on system, so docker security limits access to user.
 
-\-Add user while running container
+\-Add user while running container.
 
 ```bash
  $ docker run --user=a67389 ubuntu sleep 3000    #defining user 
@@ -177,7 +177,7 @@ Two types of network policies:
 
 **1.Ingress:** traffic **entering** to system, network, or cluster (request coming into application from internet).
 
-**2.Egress:** traffic **leaving** from system, network, or cluster (pp making **outgoing requests** to external APIs).
+**2.Egress:** traffic **leaving** from system, network, or cluster (making **outgoing requests** to external APIs).
 
 Suppose, i don’t want **Web Pod** directly send traffic to **DB Pod**, will create network policy for DB and associate it with DB Pod by using Labels and Selectors.
 
