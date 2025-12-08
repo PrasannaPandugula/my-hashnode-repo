@@ -12,7 +12,7 @@ tags: k8s-series
 
 ## Network Basics
 
-**Switching**: Through the switching, we can only enable communication within the network; it can receive packets on the host network and deliver them to other systems within the same network.
+**Switching**: Through the switching, we can only enable communication between systems within the network; it can receive packets on the host network and deliver them to other systems within the same network.
 
 ```bash
 $ ip link                      # check system interface
@@ -50,7 +50,7 @@ Let’s understand different types of networking in Docker before diving into Ku
 With none network, a Docker container can not reach the outside world, and can’t access anyone from outside.
 
 ```bash
-$ docker run --network none nginx 
+$ docker run --network none nginx
 ```
 
 ### Host Network
@@ -76,7 +76,7 @@ When we create a container, Docker creates a network interface
 
 ```bash
 $ docker run nginx
-$ ip netns 
+$ ip netns
 ```
 
 Container gets attached to the bridge by creating virtual cable with two an interfaces.
