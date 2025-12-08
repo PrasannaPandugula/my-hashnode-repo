@@ -33,7 +33,7 @@ A group of physical or virtual private servers running kubernetes, they consist 
 
 ### Kubernetes features
 
-Kubernetes has excellent following features to facilitate application development.
+Kubernetes has excellent features to facilitate application development.
 
 ![](https://www.opsramp.com/wp-content/uploads/2022/07/Kubernetes-Features-1024x797.png align="right")
 
