@@ -12,13 +12,13 @@ tags: k8s-series
 
 ## Kubernetes Architecture
 
-It follows master-worker (control- plane- node) structure, that manages containerized applications across a cluster. The control plane oversees and schedules workloads, while worker nodes run the containers. This design ensures the scalability, high availability, and automated management of applications.
+It follows master-worker (control- plane- node) structure that manages containerized applications across a cluster. The control plane oversees and schedules workloads, while worker nodes run the containers. This design ensures the scalability, high availability, and automated management of applications.
 
 ![](https://miro.medium.com/v2/resize:fit:700/1*NAiucG1RxJ-GMh3CBbfOxQ.png align="left")
 
 ## Kubernetes Master Node (Control Plane)
 
-It receives inputs from CLI (command line interface), or UI (user interface) via an API. We define pods, replica sets, and services via YAML file to kubernetes to maintain, it consist of multiple components.
+It receives inputs from CLI (command line interface), or UI (user interface) via an API. We define pods, replica sets, and services via YAML file to Kubernetes to maintain; it consists of multiple components.
 
 ### API Server
 
@@ -29,9 +29,9 @@ It receives inputs from CLI (command line interface), or UI (user interface) via
 * Allows user to configure workloads across the cluster.
     
 * ```bash
-        kubectl cluster-info  #(shows url of K8s server Ex: https://<api-server-ip>:6443)
-        kubectl api-versions
-        kubectl api-resources
+          kubectl cluster-info  #(shows url of K8s server Ex: https://<api-server-ip>:6443)
+          kubectl api-versions
+          kubectl api-resources
     ```
     
 
@@ -59,9 +59,9 @@ It receives inputs from CLI (command line interface), or UI (user interface) via
 * It checks the current state of nodes it is tasked to control, and determines if there are any differences and resolves them, if any.
     
 * ```bash
-        kubectl -n kube-system describe pod kube-controller-manager-<node-name>  (CM-event, health check)
-        kubectl -n kube-system logs kube-controller-manager-<node-name>          (view loogs)
-        kubectl get pods -n kube-system | grep kube-controller-manager           (CM status check)
+          kubectl -n kube-system describe pod kube-controller-manager-<node-name>  (CM-event, health check)
+          kubectl -n kube-system logs kube-controller-manager-<node-name>          (view loogs)
+          kubectl get pods -n kube-system | grep kube-controller-manager           (CM status check)
     ```
     
 
@@ -74,9 +74,9 @@ It receives inputs from CLI (command line interface), or UI (user interface) via
 * The master node queries etcd to retrieve parameters for the state of the nodes, pods, and containers.
     
 * ```bash
-        kubectl get pods -n kube-system | grep ectd           (etcd pod status check)
-        kubectl -n kube-system logs etcd-<node-name>          (view logs)
-        kubectl -n kube-system describe pod etcd-<node-name>  (describe etcd pod)
+          kubectl get pods -n kube-system | grep ectd           (etcd pod status check)
+          kubectl -n kube-system logs etcd-<node-name>          (view logs)
+          kubectl -n kube-system describe pod etcd-<node-name>  (describe etcd pod)
     ```
     
 
@@ -93,22 +93,22 @@ Worker node listens to api server for new work assignments; they execute the wor
 * By installing kubelet, the nodes’ CPU, RAM, and storage become part of broader cluster.
     
 * ```bash
-        kubectl get nodes
-        kubectl describe node <node-name>
-        sudo journalctl -u kubelet -f       (Run on node, kubelet isnot managed as pod)
+          kubectl get nodes
+          kubectl describe node <node-name>
+          sudo journalctl -u kubelet -f       (Run on node, kubelet isnot managed as pod)
     ```
     
 
 ### Kube-proxy
 
-* It make sure that each node gets its IP address, implements local iptables and rules to handle routing and traffic load-balancing.
+* It ensures that each node gets its IP address, implements local iptables and rules to handle routing, traffic, and load-balancing.
     
 * It allows network communication between servers and pods, and is responsible for routing network traffic.
     
 * ```bash
-        kubectl get pods -n kube-system | grep kube-proxy             (check proxy status)
-        kubectl -n kube-system logs kube-proxy-<node-name>            (view logs)
-        kubectl -n kube-system describe pod kube-proxy-<node-name>    (describe kube-proxy pod)
+          kubectl get pods -n kube-system | grep kube-proxy             (check proxy status)
+          kubectl -n kube-system logs kube-proxy-<node-name>            (view logs)
+          kubectl -n kube-system describe pod kube-proxy-<node-name>    (describe kube-proxy pod)
     ```
     
 
@@ -119,10 +119,10 @@ Worker node listens to api server for new work assignments; they execute the wor
 * Popular container runtime examples include containerd, Docker, and CRI-O.
     
 * ```bash
-        #Docker                         #containerd                        #CRI-O
-        docker ps                       crictl ps                          crictl ps
-        docker --version                containerd --version               crio --version
-        sudo journalctl -u docker -f    sudo journalctl -u containerd -f   sudo journalctl -u crio -f  (debug containers)
+          #Docker                         #containerd                        #CRI-O
+          docker ps                       crictl ps                          crictl ps
+          docker --version                containerd --version               crio --version
+          sudo journalctl -u docker -f    sudo journalctl -u containerd -f   sudo journalctl -u crio -f  (debug containers)
     ```
     
 
