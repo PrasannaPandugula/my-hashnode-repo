@@ -12,11 +12,11 @@ tags: k8s-series
 
 ## What is a Pod?
 
-A pod groups one or more containers and is a core building block on Kubernetes architecture. Ex: K8s can automatically replace a pod when it goes down, add CPU and memory to it when it needed with in k8s cluster, or even replicate it to scale out. Pods are assigned IP addresses.
+A pod groups one or more containers and is a core building block on Kubernetes architecture. Ex: K8s can automatically replace a pod when it goes down, add CPU and memory to it when it is needed within k8s cluster, or even replicate it to scale out. Pods are assigned IP addresses.
 
 ### Multi-container Pod
 
-A pod that runs more then one container together on the same node, sharing the same network(IP and port space) and storage volumes, it is mainly used when containers need to work together, like part of same service that must share data or communicate via localhost.
+A pod that runs more than one container together on the same node, sharing the same network(IP and port space) and storage volumes, it is mainly used when containers need to work together, like part of same service that must share data or communicate via localhost.
 
 ### Pods Overview
 
@@ -33,18 +33,18 @@ A pod that runs more then one container together on the same node, sharing the s
 * nginx-pod.yaml
     
 * ```yaml
-      apiVersion: v1
-      kind: Pod
-      metadata:
-        name: nginx-pod
-        labels:
-          app: web
-      spec:
-        containers:
-          - name: nginx-container
-            image: nginx:latest
-            ports:
-              - containerPort: 80
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: nginx-pod
+          labels:
+            app: web
+        spec:
+          containers:
+            - name: nginx-container
+              image: nginx:latest
+              ports:
+                - containerPort: 80
     ```
     
 
@@ -53,7 +53,7 @@ A pod that runs more then one container together on the same node, sharing the s
 * Run the command to create the pod
     
 * ```bash
-      kubectl apply -f nginx-pod.yaml
+        kubectl apply -f nginx-pod.yaml
     ```
     
 
@@ -68,8 +68,8 @@ A pod that runs more then one container together on the same node, sharing the s
     logs
     
 * ```sql
-      NAME         READY   STATUS    RESTARTS   AGE
-      nginx-pod    1/1     Running   0          10s
+        NAME         READY   STATUS    RESTARTS   AGE
+        nginx-pod    1/1     Running   0          10s
     ```
     
     ### Access Pod for Testing
@@ -77,8 +77,8 @@ A pod that runs more then one container together on the same node, sharing the s
     Use port forwarding to access the Nginx page:
     
 * ```bash
-      kubectl port-forward pod/nginx-pod 8080:80
-      Check: http://localhost:8080
+        kubectl port-forward pod/nginx-pod 8080:80
+        Check: http://localhost:8080
     ```
     
 
