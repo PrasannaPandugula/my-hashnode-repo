@@ -1,5 +1,5 @@
 ---
-title: "Day 14: Networking in Kubernetes"
+title: "Day 14: Networking in Docker"
 seoTitle: "Network Basics, Docker Networking, Explore Existing K8s Cluster"
 datePublished: Sat Dec 06 2025 12:01:39 GMT+0000 (Coordinated Universal Time)
 cuid: cmiu8toe2000202jj97bg6ss9
