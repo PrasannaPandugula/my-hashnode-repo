@@ -21,20 +21,20 @@ We use different services to expose pods
 
 ### ClusterIP
 
-* we can access deployed applications with in the cluster
+* we can access deployed applications within the cluster.
     
 * ```yaml
-          apiVersion: v1
-          kind: Service
-          metadata:
-            name: my-app-service
-          spec:
-            selector:
-              app: my-app
-            ports:
-              - port: 80         # service port
-                targetPort: 8080 # container port
-            type: ClusterIP    # we change based on requirement
+            apiVersion: v1
+            kind: Service
+            metadata:
+              name: my-app-service
+            spec:
+              selector:
+                app: my-app
+              ports:
+                - port: 80         # service port
+                  targetPort: 8080 # container port
+              type: ClusterIP    # we change based on requirement
     ```
     
 
@@ -106,18 +106,18 @@ Test: curl http://&lt;EXTERNAL-IP&gt;
 
 ### Service vs Ingress
 
-* Service: it handles internal networking and ensures stable IPs and Pods.
+* **Service**: it handles internal networking and ensures stable IPs and Pods.
     
-* Ingress: it provides smart routing SSL termination, and single-entry access for multiple apps.
+* **Ingress**: it provides smart routing SSL termination, and single-entry access for multiple apps.
     
 
 ## Kubernetes DNS and Service Discovery
 
-In a traditional world, apps need IP addresses to communicate. But in Kubernetes, Pod IPs **change frequently** whenever Pods restart or reschedule.
+In a traditional world, apps need IP addresses to communicate. However, in Kubernetes, Pod IPs **change frequently** whenever a Pods restarts or reschedules.
 
 ### Service Discovery
 
-* Applications automatically communicate with each other without hard-coding IPs
+* Applications automatically communicate with each other without hard-coding IPs.
     
 * In Kubernetes, every **Service** automatically gets a **stable DNS name** and a **cluster-internal IP**.
     
