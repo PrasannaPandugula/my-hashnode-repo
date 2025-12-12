@@ -159,7 +159,7 @@ Suppose, ping google from the `controlplane` node, which route does it take? Wha
 
 ```bash
 $ ip route show default
-default via 169.254.1.1 dev eth0 
+default via 169.254.1.1 dev eth0
 ```
 
 Check port numbers listening on the controlplane node.
@@ -167,7 +167,7 @@ Check port numbers listening on the controlplane node.
 ```bash
 $ netstat -nplt
 $ netstat -nplt | grep scheduler 
-tcp        0      0 127.0.0.1:10259         0.0.0.0:*               LISTEN      2907/kube-scheduler 
+tcp        0      0 127.0.0.1:10259         0.0.0.0:*               LISTEN      2907/kube-scheduler
 ```
 
 Check, Etcd is listening to multiple ports, which of these have more client connections?
