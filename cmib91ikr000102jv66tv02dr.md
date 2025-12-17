@@ -1,6 +1,6 @@
 ---
 title: "Day8: Kubernetes Security Overview"
-seoTitle: "Kubernetes Security, TLS certificate, Network Policies "
+seoTitle: "Kubernetes Security, TLS certificate, Network Policies"
 datePublished: Sun Nov 23 2025 05:00:07 GMT+0000 (Coordinated Universal Time)
 cuid: cmib91ikr000102jv66tv02dr
 slug: day8-kubernetes-security-overview
@@ -12,7 +12,7 @@ tags: k8s-series
 
 ## Security Primitives
 
-Kubernetes is the go-to platform for hosting production-grade applications, and security is of prime concern.
+Kubernetes is the go-to platform for hosting production-grade applications, and security is a top priority.
 
 * All access to the host must be secured, so Root access and password-based authentication are disabled; only SSH key-based authentication is made available.
     
