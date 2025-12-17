@@ -34,7 +34,7 @@ spec:
   usages:
   - client auth
 
-$  kubectl apply -f akshay-csr.yaml #run apply command.The 
+$  kubectl apply -f akshay-csr.yaml #run apply command.The
 ```
 
 Check the status of approval
@@ -75,7 +75,7 @@ We don't want to specify the **kubeconfig file** option on each `kubectl` comman
 1. open shell configuration file
     
 2. ```bash
-      vi ~/.bashrc
+       vi ~/.bashrc
     ```
     
 3. Add one of these lines to export the variables
@@ -106,7 +106,7 @@ Kubectl command to set certificate path
 
 ## API Groups in Kubernetes
 
-We can check version and pod details using k8s api
+We can check the version and pod details using the k8s api
 
 ```bash
 $ curl https://kube-master:6443/version
@@ -126,7 +126,7 @@ We have multiple api groups
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1764153921260/17c56696-3baf-4f56-9390-a949678ba8c0.png align="center")
 
-**Kubectl Proxy:** to access the cluster, use kubectl proxy.This way we don’t need to pass cert with command.
+**Kubectl Proxy:** To access the cluster, use kubectl proxy. This way we don’t need to pass cert with the command.
 
 ```bash
 $ Kubectl Proxy  #it launches the local https server, uses credentials and certs from kubeconfig file
