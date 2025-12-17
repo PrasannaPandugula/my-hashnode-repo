@@ -24,17 +24,17 @@ We use different services to expose pods
 * we can access deployed applications within the cluster.
     
 * ```yaml
-            apiVersion: v1
-            kind: Service
-            metadata:
-              name: my-app-service
-            spec:
-              selector:
-                app: my-app
-              ports:
-                - port: 80         # service port
-                  targetPort: 8080 # container port
-              type: ClusterIP    # we change based on requirement
+              apiVersion: v1
+              kind: Service
+              metadata:
+                name: my-app-service
+              spec:
+                selector:
+                  app: my-app
+                ports:
+                  - port: 80         # service port
+                    targetPort: 8080 # container port
+                type: ClusterIP    # we change based on requirement
     ```
     
 
@@ -69,7 +69,7 @@ spec:
 
 * Test external access using node’s public IP (EC2, VM)
     
-* curl http://&lt;NodePublicIP&gt;:40080
+* curl http://&lt;NodePublicIP&gt;:30080
     
 
 ### LoadBalancer
