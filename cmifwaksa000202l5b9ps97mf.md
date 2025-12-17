@@ -34,7 +34,7 @@ spec:
   usages:
   - client auth
 
-$  kubectl apply -f akshay-csr.yaml #run apply command.
+$  kubectl apply -f akshay-csr.yaml #run apply command.The 
 ```
 
 Check the status of approval
@@ -48,7 +48,9 @@ $ kubectl certificate deny agent-smith  # deny request if its suspicious
 $ kubectl delete csr agent-smith # delete CSR
 ```
 
-## KubeConfig Security File
+## Kubeconfig Security File
+
+kubeconfig stores cluster details, user credentials, and contexts so `kubectl` knows which Kubernetes cluster to connect to and how to authenticate
 
 Kubeconfig file consists of 3 sections:
 
@@ -73,7 +75,7 @@ We don't want to specify the **kubeconfig file** option on each `kubectl` comman
 1. open shell configuration file
     
 2. ```bash
-     vi ~/.bashrc
+      vi ~/.bashrc
     ```
     
 3. Add one of these lines to export the variables
