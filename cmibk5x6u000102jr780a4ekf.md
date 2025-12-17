@@ -127,7 +127,7 @@ Mainly, we have 3 types of certs we create
 
 1. Root Certificates - Certificate Authority
     
-2. Client Certificate (access kube-apiserver)- Admins, kube-scheduler, kube controller-manager, kube-proxy.
+2. Client Certificate (To access kube-apiserver)- Admins, kube-scheduler, kube controller-manager, kube-proxy.
     
 3. Server Certificate- kube-apiserver, etcd server, kubelet.
     
