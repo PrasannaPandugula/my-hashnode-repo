@@ -25,7 +25,7 @@ tags: k8s-series
     
     ### **Symmetric Encryption:**
     
-2. Encrypt data using keys and send the request to web server, suppose hacker sniffing the network and has a copy of user data, the server can’t decrypt data without key we must pass the key.
+2. Encrypt data using keys and send the request to web server, suppose hacker sniffing the network and has a copy of user data, the server can’t decrypt data without key; we must pass the key.
     
     \-imagine ‘key‘ passed to webserver through the same network, even the key exposed to hackers.
     
@@ -41,7 +41,7 @@ tags: k8s-series
 
 ### Asymmetric Encryption
 
-\- It uses public and private key to encrypt and decrypt data, be conscious about using keys.
+\- It uses public and private keys to encrypt and decrypt data; be conscious about using keys.
 
 Generate Keys:
 
@@ -53,7 +53,7 @@ id_rse.pub   # public key
 
 **How to use these keys in our scenario:**
 
-1. Admins lock **web-server** with a public key (usually done by adding an entry in server), we see lock was public; anyone can break through if they have the private key, so protect your private key.
+1. Admins lock **web-server** with a public key (usually done by adding an entry in server). We see lock was public; anyone can break through if they have the private key, so protect your private key.
     
 
 ```bash
@@ -77,11 +77,11 @@ $ cat ~/.ssh/autorized_keys
     
 2. When using access to the web server using https, he gets the public key from server. lets assume the hacker gets public key too.
     
-3. The user (browser) encrypts the symmetric key provided by the public key from the server, the symmetric key is now secured.
+3. The user (browser) encrypts the symmetric key provided by the public key from the server; the symmetric key is now secured.
     
-4. User/browser sends the key to the server, hacker also getsThe a copy.
+4. User/browser sends the key to the server, hacker also gets a copy.
     
-5. The server uses the private key to decrypt the symmetric key and use it, however hacker does not have the private key to decrypt the message.
+5. The server uses the private key to decrypt the symmetric key and use it; however hacker does not have the private key to decrypt the message.
     
     ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763890300783/b8c4b7e3-77f8-4a20-a32e-4aa5d00e2ae1.png align="center")
     
@@ -92,12 +92,12 @@ $ cat ~/.ssh/autorized_keys
 
 7. When the server sends a public key, it also sends the certificate with a signature; if a hacker generates a fake certificate browser identifies and warns you.
     
-
-8.How do we get the authority signature on certificate? That’s where CA(Certificate Authority) comes in.
-
-9.**Popular CA’s** \[Symantec, digicert, GlobalSign\].
-
-10.How to request CSR (Certificate Signing Request).
+8. How do we get the authority signature on the certificate? That’s where CA(Certificate Authority) comes in.
+    
+9. **Popular CA’s** \[Symantec, digicert, GlobalSign\].
+    
+10. How to request CSR (Certificate Signing Request).
+    
 
 ```bash
 $ openssl req -new -key my-bank -out my-bank.csr -subj "/C=US/ST=CA/o=MyOrg, Inc./CN=my-bank.com"
@@ -107,11 +107,11 @@ $ openssl req -new -key my-bank -out my-bank.csr -subj "/C=US/ST=CA/o=MyOrg, Inc
     
 12. ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1763891417234/24d09b19-0c51-4266-a786-2670f6e89fbd.png align="center")
     
-    How does CA’s process work?, Certificate Authorities will have their own public and private keys. They use a private key to sign a certificate and send public keys to browser for validation, this process is for public apps that we are using day to day life.
+    How does CA’s process work?, Certificate Authorities will have their own public and private keys. They use a private key to sign a certificate and send public keys to browser for validation. This process is for public apps that we are using day to day life.
     
-13. Application in our organization and private, in this case, we host private CA’s (most of the companies office private services). install public key on employee browsers to access app securely.
+13. Application in our organization and private, in this case, we host private CA’s (most of the companies’ offer private services). install public key on employee browsers to access the app securely.
     
-14. How server validate client? (client=browser), The server can request a cert from client, so the client must generate cert and send it to CA and server for validation. This process is TLS certificate implemented under the hood, if you notice when we access any app from browser we won’t be generating any certs.
+14. How server validate the client? (client=browser), The server can request a cert from client, so the client must generate cert and send it to CA and the server for validation. This process is a TLS certificate implemented under the hood, if you notice, when we access any app from browser, we won’t be generating any certs.
     
 
 Note: Public and private keys are paired; we can only use one for encryption and other for decryption.
@@ -136,7 +136,7 @@ Mainly, we have 3 types of certs we create
 
 * use a tool to generate certs **EASYRS, OPENSSL, CFSSL etc..**
     
-* The best way to configure certificate using a config file.
+* The best way to configure a certificate is using a config file.
     
 
 **Certificate Authority cert creation:**
@@ -213,7 +213,7 @@ $ openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text #look subject name
         Validity
             Not Before: Nov 23 14:39:33 2025 GMT
             Not After : Nov 23 14:44:33 2026 GMT
-        Subject: CN = kube-apiserver # CN naeem here
+        Subject: CN = kube-apiserver # CN name here
         Subject Public Key Info:
      X509v3 Authority Key Identifier: 
                 FD:53:F7:34:3F:F3:6C:81:0F:A7:0C:9E:55:AE:37:61:EC:5C:6F:0E
