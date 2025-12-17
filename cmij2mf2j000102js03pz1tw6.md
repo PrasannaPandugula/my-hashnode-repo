@@ -27,7 +27,7 @@ $ kubectl create serviceaccount srv678905
 * create a token
     
 * ```bash
-          $ kubectl create token srv678905 --duration 2h   #default expiry 1h
+            $ kubectl create token srv678905 --duration 2h   #default expiry 1h
     ```
     
 
@@ -40,15 +40,15 @@ $ kubectl create serviceaccount srv678905
 * To attach a new service account to pod, use serviceAccountName in pod object.
     
 * ```yaml
-          apiVersion: v1
-          kind: Pod
-          metadata:
-            name: nginx
-          spec:
-            containers:
-            - name: nginx
-              image: nginx:1.14.2
-            serviceAccountName: srv678905  # binding new sc
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              name: nginx
+            spec:
+              containers:
+              - name: nginx
+                image: nginx:1.14.2
+              serviceAccountName: srv678905  # binding new sc
     ```
     
     \- When service account is attached to a Pod, Kubernetes:
@@ -88,7 +88,7 @@ Use private registry image in Pod definition file.
 
 ```yaml
 apiVersion: V1
-kid: Pod
+knid: Pod
 metadata:
   name: nginx-pod
 spec:
@@ -103,13 +103,13 @@ In Kubernetes, images pull and run by the docker runtime on worker node, we have
 * Create secret object with credentials.
     
 * ```bash
-        $ kubectl create secret docker-registry regcred \   # docker-registry is build in secret to store credentials
-            --docker-server= private-registry.io  \
-            --docker-username= prasanna \
-            --docker-password= prasanna@898  \
-            --docker-email= prasanna@gmail.com
-        
-        # Specify the secret name in Pod file under containers
+          $ kubectl create secret docker-registry regcred \   # docker-registry is build in secret to store credentials
+              --docker-server= private-registry.io  \
+              --docker-username= prasanna \
+              --docker-password= prasanna@898  \
+              --docker-email= prasanna@gmail.com
+          
+          # Specify the secret name in Pod file under containers
     ```
     
 
