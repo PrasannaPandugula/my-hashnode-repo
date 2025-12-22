@@ -23,7 +23,7 @@ User → web (web-service) → DB (DB-service).
 2. Check the service.
     
     ```bash
-    $ Kubectl describe svc web-service # look at selector or Endpoint details. 
+    $ Kubectl describe svc web-service # look at selector or Endpoint details.
     ```
     
 3. Look at Pod details
