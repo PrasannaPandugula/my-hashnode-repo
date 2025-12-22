@@ -1,5 +1,5 @@
 ---
-title: "Day 15 Networking in Kubernetes"
+title: "Day 15: Networking in Kubernetes"
 seoTitle: "Pod and Service Networking, Kubernetes CNI"
 datePublished: Fri Dec 12 2025 14:52:36 GMT+0000 (Coordinated Universal Time)
 cuid: cmj2zkn42000002jy9mq09yfr
