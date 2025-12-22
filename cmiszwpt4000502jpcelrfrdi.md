@@ -38,7 +38,7 @@ $ docker build Dockerfile -t prasanna/my-custom-app
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1764667075219/b44a0330-e4bb-49af-a96f-6822cb8a4b61.png align="left")
 
-**Docker run** will create a new **writable layer** called Container Layer based top of the Image Layers.
+**Docker run** will create a new **writable layer** called Container Layer based on top of the Image Layers.
 
 ```bash
 $ Doker run prasanna/my-custom-app
@@ -52,9 +52,9 @@ $ Doker run prasanna/my-custom-app
 
 ### COPY-ON-WRITE
 
-\-When login to the container using certain methods ex: docker exec, it creates a temp file in Container Layer(read and write) which stores temp credentials, commands and environment variables.
+\-When login to the container using certain methods ex: docker exec, it creates a temp file in Container Layer(read and write) which stores temp credentials, commands, and environment variables.
 
-\-Application code present in the Image Layer, we can still edit details before saving file. A copy of details is stored in Container Layer by Docker, so a different version of file is present in read-write layer all future modifications to this file are handled through the COPY-ON-WRITE mechanism.
+\-Application code present in the Image Layer, we can still edit details before saving file. A copy of details is stored in Container Layer by Docker, so a different version of file is present in the read-write layer. All future modifications to this file are handled through the COPY-ON-WRITE mechanism.
 
 \-If we get rid of the container, the files present in the Container Layer get deleted.
 
@@ -100,7 +100,7 @@ $ docker run --mount type=bind,source=/data/mysql,target=/var/lib/mysql
 
 **Storage Drivers**: The Entire process is taken care by storage layers.
 
-\*\*-\*\*Common storage drivers are AUFS, ZFS, BTRFS, Device Mapper, Overlay, Overlay2, The selection of storage drivers depends on OS, Ex, Ubuntu uses AUFS.
+Common storage drivers are AUFS, ZFS, BTRFS, Device Mapper, Overlay, and Overlay2. The selection of storage drivers depends on the OS, Ex, Ubuntu uses AUFS.
 
 \-Docker automatically selects storage drivers based on the OS.
 
@@ -127,9 +127,9 @@ This will create a container and attach a volume from AWS EBC cloud, when a cont
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1764843553998/8c2ebb4d-3abc-4cc2-a6be-f65e2d8f4a8e.png align="center")
 
-## Kubernetes Volumes and VolumeMount
+## Kubernetes Volumes and Volume Mount
 
-**Volume:** Its actual storage location outside the container file system, it can live in different places depending on the type.
+**Volume:** Its actual storage location outside the container file system; it can live in different places depending on the type.
 
 * **emptyDir**: stored on the Node(in RAM or Disk)
     
@@ -171,15 +171,15 @@ spec:
 
 ## Persistent Volume and Volume Claims in K8s
 
-Persistent Volume: It is a storage in k8s cluster that exists independently of Pods.
+**Persistent Volume**: It is a storage in k8s cluster that exists independently of Pods.
 
-Persistent Volume Claims: a request for storage by a Pod that uses PVC to access PV.
+**Persistent Volume Claims**: a request for storage by a Pod that uses PVC to access PV.
 
-1. Admin creates a set of Persistent Volumes, and the user creates Pods to use storage.
+1. The administrator creates a set of Persistent Volumes, and the user creates Pods to utilize the storage.
     
 2. Kubernetes automatically binds PVC and PV based on the request, and it checks sufficient capacity, Access Modes, Volume Modes, and Storage Class.
     
-3. If multiple matches for single claim, and would like to use a particular volume, use **Labels and Selectors** to bind to the right volume**.**
+3. If multiple matches for a single claim, and we would like to use a particular volume, use **Labels and Selectors** to bind to the correct volume.
     
 4. A smaller claim can be bound to use a larger volume if all other criteria match, there is a one-to-one relation between claims and volumes, and no other claim can use the remaining volume.
     
@@ -219,12 +219,12 @@ spec:
   - ReadWriteOnce    #access should match with PV
   resources:
     request: 
-      storage: 500mi 
+      storage: 500mi
 ```
 
 ```bash
 $ kubectl apply -f pvc-definition.yaml
-$ kubectl get persistentvolumeclaim        #you could see binding details of PV and PVC
+$ kubectl get persistentvolumeclaim        #you should see binding details of PV and PVC
 ```
 
 ### Delete PVC’s
@@ -232,25 +232,25 @@ $ kubectl get persistentvolumeclaim        #you could see binding details of PV 
 * When we delete PVC
     
 * ```bash
-    $ kubectl delete persistentvolumeclaim my-vol-claim
+      $ kubectl delete persistentvolumeclaim my-vol-claim
     ```
     
 * PV associated with that deleted PVC set to Retain default until manually deleted by administrator.
     
 * ```yaml
-    persistentVolumeReclaimPolicy: Retain      #or, it can be deleted automatically.
+      persistentVolumeReclaimPolicy: Retain      #or, it can be deleted automatically.
     ```
     
-    **StatefulSet:** we use it when pods need stable identity and stable storage; using PVC/PV alone cannot guarantee it.
+    **StatefulSet:** we use it when pods need a stable identity and stable storage; using PVC/PV alone cannot guarantee it.
     
 
 ## Storage Class
 
-So far, we have created PV, PVC, and used PVC in Pod definition file as persistent volumes entire process called **static provisioning**.
+So far, we have created PV, PVC, and used PVC in the Pod definition file as persistent volumes entire process called **static provisioning**.
 
 **Dynamic Provisioning**
 
-With Storage Class, we can define a provisioner, such as gcp, AWSEBS or AzureDisk, which automatically creates PV and attaches it to a Pod when a claim is made.
+With Storage Class, we can define a provisioner, such as gcp, AWSEBS, or AzureDisk, which automatically creates PV and attaches it to a Pod when a claim is made.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
