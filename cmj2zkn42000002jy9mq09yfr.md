@@ -53,14 +53,14 @@ Kubernetes does below steps:
 
 **View CNI Configuration**
 
-1. Network plugins are installed under **/opt/cni/bin** directory, container looks into this directory.
+1. Network plugins are installed in the **/opt/cni/bin** directory, container looks into this directory.
     
-2. Which plugin and how to use configured in the below directories.
+2. Which plugin and how to use it are configured in the directories.
     
 3. ```bash
-       $ ls /etc/cni/net.d         #If multiple files are there, it will choose one in alphabetical order.
-       10-bridge.conflist         
-       10-flannel.conflist             #plugin to use
+        $ ls /etc/cni/net.d         #If multiple files are there, it will choose one in alphabetical order.
+        10-bridge.conflist         
+        10-flannel.conflist             #plugin to use
     ```
     
 
@@ -102,7 +102,7 @@ $ cat /etc/cni/net.d/net-script.confg             # cni, network plugin cong fil
 * Where is this info stored?
     
 
-All these are taken care of by CNI, it has different plugins, such as host-local, DHCP, and we should add them to our script.
+All these are taken care of by CNI, it has different plugins, such as host-local, DHCP, we should add them to our script.
 
 ### Cleanup CNI plugin Flannel
 
@@ -188,10 +188,10 @@ Calico plugin that supports Network Policies, let’s see a sample example, we s
         ```
         
     5. ```bash
-           $ kubectl exec -it frontend -- curl -m 5 172.17.49.72  # front end app not able to access backend app since we applied network policies via calcio.
-           curl: (28) Connection timed out after 5002 milliseconds
-           command terminated with exit code 28
-           # backend app ip: 172.17.49.72
+            $ kubectl exec -it frontend -- curl -m 5 172.17.49.72  # front end app not able to access backend app since we applied network policies via calcio.
+            curl: (28) Connection timed out after 5002 milliseconds
+            command terminated with exit code 28
+            # backend app ip: 172.17.49.72
         ```
         
     
@@ -277,8 +277,8 @@ $ curl http://web-service.apps.svc.custer.local  #
 2. When we create thousands of Pod each minute, this solution does not solve our problem; we will move all records to DNS server file (10.96.0.10).
     
 3. ```bash
-     $ cat >> /etc/resolv.conf
-       name   10.96.0.10
+      $ cat >> /etc/resolv.conf
+        name   10.96.0.10
     ```
     
 
