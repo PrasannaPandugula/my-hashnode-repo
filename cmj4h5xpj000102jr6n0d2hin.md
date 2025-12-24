@@ -14,7 +14,7 @@ tags: k8s-series
 
 ### Purpose
 
-**Learning:** Want to create a cluster for learning purposes, use the following options.
+**Learning:** Want to create a cluster for learning purposes? Use the following options.
 
 * Minikube.
     
@@ -99,7 +99,7 @@ tags: k8s-series
                               --leader-elect-lease-durition 15s    # default time
                               --leader-elect-renew-deadline 10s    # default time
                               --leader-elect-retry-period  2s   # every 2s these nodes try to become leader inscase any of the node fails other can pickup request.
-    # same process goes with Scheduler  
+    # same process goes with Scheduler
     ```
     
     ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1765639654875/73b76570-ab38-4a1b-b89e-684e4554e1ed.png align="left")
