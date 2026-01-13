@@ -10,7 +10,7 @@ tags: techblogwithprasanna
 
 ---
 
-### Introduction
+## Introduction
 
 With the official Kubernetes Dashboard now retired, the need for a modern, user-friendly, and secure Kubernetes UI has become more important than ever. Headlamp, an open-source Kubernetes web UI, emerges as a powerful alternative that offers real-time cluster visibility, extensibility, and a developer-friendly experience.
 
